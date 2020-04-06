@@ -254,4 +254,18 @@ class ApiResponse implements AuthInterface {
 
         return str_replace('\\HTTP', '\\Model', __NAMESPACE__) . '\\' . ucfirst($resourceName);
     }
+
+    /**
+     * Function to include keys in array_map (php)
+     * @param $valuecallback
+     * @param $arrayparam
+     * @return array
+     */
+    private function mymapper($valuecallback,$arrayparam) {
+        $resultarr = array();
+        foreach ($arrayparam as $key => $value) {
+            $resultarr[] = $valuecallback($key, $value);
+        }
+        return $resultarr;
+    }
 }
