@@ -36,6 +36,7 @@ class Program extends GenericEntity {
     protected $logoPath;
     protected $userLogin;
     protected $workingCurrencyCode;
+    protected $affrequest;
     protected $category = null;
     protected $countries = null;
     protected $ignoreIPs = null;

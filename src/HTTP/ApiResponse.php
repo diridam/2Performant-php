@@ -220,7 +220,7 @@ class ApiResponse implements AuthInterface {
 
 
                 return $this->mymapper(function($key,$element) use ($className) {
-                    if($key == 'metadata'){
+                    if((string)$key == "metadata") {
                         $className = $this->getClassName('metadata');
                     }else{
                         $className = substr($className, 0, -1);
@@ -236,14 +236,15 @@ class ApiResponse implements AuthInterface {
         if(class_exists($className)) {
             return new $className($data, $this->owner);
         } elseif(substr($className, -1) == 's' && class_exists(substr($className, 0, -1))) {
-//            $className = substr($className, 0, -1);
-//            return array_map(function($element) use ($className) { return new $className($element, $this->owner); }, $data);
-            return $this->mymapper(function($key,$element) use ($className) {
-                if($key == 'metadata'){
+            //            $className = substr($className, 0, -1);
+            //            return array_map(function($element) use ($className) { return new $className($element, $this->owner); }, $data);
+            return $this->mymapper(function($key,$element) use ($className, $expected) {
+                if((string)$key == "metadata") {
                     $className = $this->getClassName('metadata');
                 }else{
                     $className = substr($className, 0, -1);
                 }
+
                 return new $className($element, $this->owner);
             }, $data);
         }
